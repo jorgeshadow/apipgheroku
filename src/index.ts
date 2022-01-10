@@ -1,28 +1,46 @@
-import express,{Application} from 'express';
 const cors = require('cors')
-import documentosRoute from "./routes/documentosRoute";
-class Server{
-    public app:Application
+import express, { Application, Request, Response } from "express";
+const {Pool } =require('pg')
+const app: Application = express();
 
-    constructor(){
-        this.app=express();
-        this.onConfig();
-        this.onRoutes()
-    }
-    onConfig():void{
-        this.app.set('port',process.env.PORT || 8000)
-        this.app.use(express.json());
-        this.app.use(cors());
-        this.app.use(express.urlencoded({extended:false}))
-    }
-    onRoutes():void{
-        this.app.use('/api',documentosRoute)
-    }
-    onStart(): void{
-        this.app.listen(this.app.get('port'),()=>{
-            console.log('corriendo en el puerto 3000',this.app.get('port'));
-        });
+const config={
+    user:'cguycmbjlrmbza',
+    host:'ec2-75-101-227-91.compute-1.amazonaws.com',
+    password:'8b2247ed52084ba04e71435ba13ef6a4cba1cb1d0fc553878e304fd64a6c3d82',
+    database:'d2kl56pbbbsnkv',
+    ssl: {
+        rejectUnauthorized: false
+      },
+    port:'5432'
 }
-}
-const server =new Server();
-server.onStart();
+
+const pool=new Pool(config)
+
+var mv = require('mv');
+    // funcion 1
+   
+
+// res.json({ message: "Hello world!" });
+app.set("port", process.env.PORT || 3000);
+
+app.get("/", (_req: Request, res: Response) => {
+    res.json({"ASF":"ASF"})
+});
+app.post('/setv',(_req: Request, res: Response)=>{
+   
+});
+    app.get('/datepg',async(_req: Request, res: Response)=>{
+        const resp =await pool.query(
+            `select * from ventas`
+        )
+        res.json(resp)
+    });
+    app.get('/movedb',(_req: Request, res: Response)=>{
+        mv('G:/My Drive/fdbs/PRUEBA.FDB', 'C:/FirebirdDB/PRUEBA.FDB', function(err:any) {
+            res.json(err)
+            });
+    });  
+
+app.listen(app.get("port"), () => {
+  console.log(`Server on http://localhost:${app.get("port")}/`);
+});
