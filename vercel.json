@@ -8,7 +8,7 @@
     ],
     "routes":[
         {
-            "src":"/buid/routes/documentosRoute.js",
+            "src":"/(*)",
             "dest":"/"
         }
     ]
