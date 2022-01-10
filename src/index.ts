@@ -19,7 +19,7 @@ const pool=new Pool(config)
 var mv = require('mv');
     // funcion 1
    
-
+app.use(cors());
 // res.json({ message: "Hello world!" });
 app.set("port", process.env.PORT || 3000);
 
