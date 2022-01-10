@@ -10,7 +10,7 @@ class Server{
         this.onRoutes()
     }
     onConfig():void{
-        this.app.set('port',process.env.PORT || 5000)
+        this.app.set('port',process.env.PORT || 3000)
         this.app.use(express.json());
         this.app.use(cors());
         this.app.use(express.urlencoded({extended:false}))
