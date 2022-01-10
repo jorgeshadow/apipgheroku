@@ -19,7 +19,7 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     onRoutes() {
-        this.app.use('/', documentosRoute_1.default);
+        this.app.use('/api', documentosRoute_1.default);
     }
     onStart() {
         this.app.listen(this.app.get('port'), () => {
