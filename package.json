@@ -1,0 +1,28 @@
+{
+  "name": "firebirdnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    
+    "start":"nodemon build/src/index.js",
+    "postinstall": "tsc",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mv": "^2.1.1",
+    "odbc": "^2.4.1",
+    "pg": "^8.5.1"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
