@@ -16,7 +16,7 @@ class Server{
         this.app.use(express.urlencoded({extended:false}))
     }
     onRoutes():void{
-        this.app.use('/api',documentosRoute)
+        this.app.use('/',documentosRoute)
     }
     onStart(): void{
         this.app.listen(this.app.get('port'),()=>{
