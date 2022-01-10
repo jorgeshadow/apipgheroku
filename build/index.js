@@ -16,6 +16,7 @@ const cors = require('cors');
 const express_1 = __importDefault(require("express"));
 const { Pool } = require('pg');
 const app = (0, express_1.default)();
+const odbc = require('odbc');
 const config = {
     user: 'cguycmbjlrmbza',
     host: 'ec2-75-101-227-91.compute-1.amazonaws.com',
@@ -26,15 +27,48 @@ const config = {
     },
     port: '5432'
 };
+const bd = {
+    host: 'localhost',
+    port: 3050,
+    database: 'C:\\MO\\WeUp_GV.fdb',
+    user: 'SYSDBA',
+    password: 'masterkey'
+};
 const pool = new Pool(config);
 var mv = require('mv');
 // funcion 1
+app.use(cors());
 // res.json({ message: "Hello world!" });
 app.set("port", process.env.PORT || 3000);
 app.get("/", (_req, res) => {
     res.json({ "ASF": "ASF" });
 });
-app.post('/setv', (_req, res) => {
+app.post('/setv', (aSql, aParams = []) => {
+    return new Promise(res => {
+        const conectionconfig = {
+            connectionString: `DSN=ODBCtest;UID=${bd.user};PWD=${bd.password};DATABASE=${bd.host}/${bd.port}:${bd.database}`,
+            connectionTimeout: 10,
+            loginTimeout: 10
+        };
+        const connection = odbc.connect(conectionconfig, (error, connection) => {
+            if (error) {
+                console.log(error);
+                res(error);
+            }
+            connection.query(aSql, aParams, (error, result) => {
+                if (error) {
+                    console.log(error);
+                    res(error);
+                }
+                res(result);
+                connection.close((error) => {
+                    if (error) {
+                        return;
+                    }
+                });
+            });
+        });
+    });
 });
 app.get('/datepg', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const resp = yield pool.query(`select * from ventas`);
