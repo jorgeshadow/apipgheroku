@@ -32,45 +32,7 @@ app.set("port", process.env.PORT || 3000);
 
 app.get("/", (_req: Request, res: Response) => {
     res.json({"ASF":"ASF"})
-});
-app.post('/setv',(aSql:any,aParams:any=[])=>{
-    return new Promise(res=>{
-        const conectionconfig={
-            connectionString:`DSN=ODBCtest;UID=${bd.user};PWD=${bd.password};DATABASE=${bd.host}/${bd.port}:${bd.database}`,
-            connectionTimeout:10,
-            loginTimeout:10
-
-        }
-        const  connection=odbc.connect(conectionconfig,(error:any,connection:any)=>{
-            if (error) {
-                console.log(error);res(error)
-            }
-            connection.query(aSql,aParams,(error:any,result:any)=>{
-                if (error) {
-                    console.log(error);res(error)
-                } 
-                res(result)
-
-                connection.close((error:any)=>{
-                    if (error) {
-                        return;
-                    }
-                })
-            })
-        })
-    });
-});
-    app.get('/datepg/:date',async(_req: Request, res: Response)=>{
-        const resp =await pool.query(
-            `select * from ventas where dia_consa='${_req.params.date}'`
-        )
-        res.json(resp)
-    });
-    app.get('/movedb',(_req: Request, res: Response)=>{
-        mv('G:/My Drive/fdbs/PRUEBA.FDB', 'C:/FirebirdDB/PRUEBA.FDB', function(err:any) {
-            res.json(err)
-            });
-    });  
+});  
 
 app.listen(app.get("port"), () => {
   console.log(`Server on http://localhost:${app.get("port")}/`);
