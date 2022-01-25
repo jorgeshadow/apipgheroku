@@ -60,9 +60,9 @@ app.post('/setv',(aSql:any,aParams:any=[])=>{
         })
     });
 });
-    app.get('/datepg',async(_req: Request, res: Response)=>{
+    app.get('/datepg/:date',async(_req: Request, res: Response)=>{
         const resp =await pool.query(
-            `select * from ventas`
+            `select * from ventas where dia_consa='${_req.params.date}'`
         )
         res.json(resp)
     });
