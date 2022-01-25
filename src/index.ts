@@ -1,8 +1,7 @@
 const cors = require('cors')
 import express, { Application, Request, Response } from "express";
 const {Pool } =require('pg')
-const app: Application = express();
-const odbc=require('odbc');
+const app: Application = express(); 
 const config={
     user:'cguycmbjlrmbza',
     host:'ec2-75-101-227-91.compute-1.amazonaws.com',
