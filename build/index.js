@@ -70,8 +70,13 @@ app.post('/setv', (aSql, aParams = []) => {
         });
     });
 });
+<<<<<<< HEAD
 app.get('/datepg/:date', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const resp = yield pool.query(`select * from ventas where dia_consa='${_req.params.date}'`);
+=======
+app.get('/datepg', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const resp = yield pool.query(`select * from ventas`);
+>>>>>>> parent of e0ab5c5 (sdf)
     res.json(resp);
 }));
 app.get('/movedb', (_req, res) => {
